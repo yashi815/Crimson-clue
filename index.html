@@ -24,7 +24,7 @@
     h1 {
       color: #cc0066;
     }
-    .note {
+    .result {
       margin-top: 20px;
       font-weight: bold;
       color: #99004d;
@@ -34,26 +34,40 @@
 <body>
   <h1>CrimsonClue - Period Prediction</h1>
 
-  <form>
+  <form action="/predict" method="post">
     <label for="start_date">Last Period Start Date:</label><br>
     <input type="date" id="start_date" name="start_date" required><br>
 
     <label for="cycle_length">Cycle Length (in days):</label><br>
     <input type="number" id="cycle_length" name="cycle_length" required><br>
 
-    <button type="button" onclick="alert('Prediction feature coming soon!')">Predict</button>
+    <button type="submit">Predict</button>
   </form>
 
-  <div class="note">
-    <p>This is a demo. Prediction logic will be available soon.</p>
-  </div>
+  {% if next_date %}
+    <div class="result">
+      <p>Your next period is expected on: <strong>{{ next_date }}</strong></p>
+    </div>
+  {% endif %}
 
-  <!-- Chatbot Embed using iframe (Recommended for GitHub Pages) -->
+  {% if previous_dates %}
+    <div class="result">
+      <p><u>Previous Period Dates:</u></p>
+      <ul>
+        {% for date in previous_dates %}
+          <li>{{ date }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <!-- Chatbot Embed -->
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
   <iframe
-    allow="microphone;"
-    width="350"
-    height="430"
-    src="https://console.dialogflow.com/api-client/demo/embedded/4778b39e-1fdd-4e0c-8e68-a8338249150f">
+  allow="microphone;"
+  width="350"
+  height="430"
+  src="https://console.dialogflow.com/api-client/demo/embedded/4778b39e-1fdd-4e0c-8e68-a8338249150f">
   </iframe>
 
 </body>
