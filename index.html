@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CrimsonClue - Period Prediction</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffe6f0;
+      text-align: center;
+      padding: 50px;
+    }
+    form {
+      background: white;
+      display: inline-block;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+    h1 {
+      color: #cc0066;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #99004d;
+    }
+  </style>
+</head>
+<body>
+  <h1>CrimsonClue - Period Prediction</h1>
+
+  <form action="/predict" method="post">
+    <label for="start_date">Last Period Start Date:</label><br>
+    <input type="date" id="start_date" name="start_date" required><br>
+
+    <label for="cycle_length">Cycle Length (in days):</label><br>
+    <input type="number" id="cycle_length" name="cycle_length" required><br>
+
+    <button type="submit">Predict</button>
+  </form>
+
+  {% if next_date %}
+    <div class="result">
+      <p>Your next period is expected on: <strong>{{ next_date }}</strong></p>
+    </div>
+  {% endif %}
+
+  {% if previous_dates %}
+    <div class="result">
+      <p><u>Previous Period Dates:</u></p>
+      <ul>
+        {% for date in previous_dates %}
+          <li>{{ date }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <!-- Chatbot Embed -->
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  <df-messenger
+    intent="WELCOME"
+    chat-title="CrimsonClue"
+    agent-id="4778b39e-1fdd-4e0c-8e68-a8338249150f"
+    language-code="en">
+  </df-messenger>
+
+</body>
+</html>
